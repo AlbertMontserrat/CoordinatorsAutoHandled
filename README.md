@@ -31,6 +31,44 @@ What does this means:
 
 In a nutshell, when a new view is added to the hierarchy (push, present, ...) this retains a view controller, a view model, and this view model retains the coordinator. Every new view in the same coordinator flow retains again the same coordinator. Once the view is dismissed, no matter how it is, the retain count for the coordinator is reduced by one. When there's no more views/view models in the view hierarchy, the coordinator is released with this last one.
 
+## Key ponts:
+
+### Coordinator
+
+```swift
+class Coordinator {
+    weak var navigationViewController: UINavigationController?
+}
+
+extension Coordinator: ViewModelDelegate { ... }
+```
+
+Navigation controller on coordinators needs to be weak to not double retain them.
+
+### View models
+
+```swift
+protocol ViewModelDelegate { /* Any callback from ViewModel to coordinator */ }
+
+protocol ViewModelType { /* Callbacks or variables that view controller can access */ }
+
+class ViewModel {
+    let delegate: ViewModelDelegate
+}
+```
+
+Note delegate is not weak. We want to retain coordinator here.
+
+### View controller
+
+```swift
+class ViewController: UIViewController {
+    let viewModel: ViewModelType
+}
+```
+
+Again, we make view model not weak to ensure we are retaining it with the view hierarchy.
+
 ## Benefits
 
 Completely free management of coordinators, no need to extra retain or release child coordinators, and it's still possible to make specific actions on dismiss, pop, deinit, whatever you need, using delegate pattern or any other pattern of your choice.
