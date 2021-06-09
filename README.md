@@ -1,6 +1,6 @@
 # CoordinatorsAutoHandled
 
-An example of how coordinators don't need to handle child coordinators
+An example of how coordinators don't need to handle child coordinators and can skip tracking back buttons or any other ways to dismiss a view.
 
 [![Watch the demo](demo.gif)](demo.mp4)
 
