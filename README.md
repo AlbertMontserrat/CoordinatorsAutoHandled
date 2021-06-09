@@ -73,6 +73,8 @@ Again, we make view model not weak to ensure we are retaining it with the view h
 
 Completely free management of coordinators, no need to extra retain or release child coordinators, and it's still possible to make specific actions on dismiss, pop, deinit, whatever you need, using delegate pattern or any other pattern of your choice.
 
+With the classic approach of child coordinators array, you need to handle back buttons. But iOS don't only allow dismissing views with back button, but also left swipe or top swipe for presented view controllers. With this approach, no matter what system apple allow users to pop or dismiss view controllers. You neither need to create custom back buttons if you don't really need it. This is all automatically handled by view hierarchy. 💪
+
 ## Disadvantages
 
 The only downside of this approach is that it might create some leaks if the retaining management of the views and view models haven't been done correctly. Causing that even if the view is dismissed, the coordinator is not, because even if the view is not in the hierarchy anymore, this is not released, so it's still retaining the view model and the coordinator.
