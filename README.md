@@ -2,7 +2,7 @@
 
 An example of how coordinators don't need to handle child coordinators
 
-[![Watch the demo]](demo.mp4)
+[![Watch the demo](demo.gif)](demo.mp4)
 
 ## Briefly introduction
 
